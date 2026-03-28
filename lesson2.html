@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TECH CAMP Lesson 2 - 備忘録</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg-card: #1a1c25;
+      --bg-code: #12141c;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --pink: #f472b6;
+      --orange: #fb923c;
+      --radius: 12px;
+      --transition: 0.3s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", "Noto Sans JP", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========== Header ========== */
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    header .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    header h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ========== Table of Contents ========== */
+    .toc {
+      max-width: 800px;
+      margin: -20px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .toc-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-inner a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+    }
+
+    .toc-inner a:hover {
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.06);
+    }
+
+    /* ========== Main ========== */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ========== Section ========== */
+    .lesson-section {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-label.html-label { color: var(--orange); }
+    .section-label.css-label { color: var(--accent); }
+    .section-label.tips-label { color: var(--green); }
+    .section-label.error-label { color: var(--pink); }
+    .section-label.summary-label { color: var(--yellow); }
+
+    .lesson-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ========== Card ========== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      transition: border-color var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.9;
+    }
+
+    .card ul, .card ol {
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+
+    .card li { margin-bottom: 4px; }
+
+    .card strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ========== Code Block ========== */
+    .code-block {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 12px 0;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .code-block pre {
+      padding: 16px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #c9d1d9;
+    }
+
+    .code-block .tag { color: var(--pink); }
+    .code-block .attr { color: var(--orange); }
+    .code-block .value { color: var(--green); }
+    .code-block .prop { color: var(--accent); }
+    .code-block .comment { color: #6a737d; font-style: italic; }
+    .code-block .selector { color: var(--yellow); }
+
+    code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.82em;
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    /* ========== Callout ========== */
+    .callout {
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin: 16px 0;
+      font-size: 0.85rem;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .callout-icon {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .callout-tip {
+      background: rgba(52, 211, 153, 0.06);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      color: var(--green);
+    }
+
+    .callout-warn {
+      background: rgba(251, 191, 36, 0.06);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      color: var(--yellow);
+    }
+
+    .callout-error {
+      background: rgba(244, 114, 182, 0.06);
+      border: 1px solid rgba(244, 114, 182, 0.2);
+      color: var(--pink);
+    }
+
+    /* ========== Checklist ========== */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin-top: 12px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    /* ========== Footer ========== */
+    footer {
+      text-align: center;
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 600px) {
+      header { padding: 36px 16px; }
+      .toc { padding: 0 16px; margin-top: -16px; }
+      .toc-inner { padding: 16px; gap: 6px; }
+      .toc-inner a { font-size: 0.75rem; padding: 5px 10px; }
+      main { padding: 28px 16px 60px; }
+      .card { padding: 18px; }
+      .code-block pre { padding: 12px; font-size: 0.75rem; }
+      .lesson-section h2 { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="badge">TECH CAMP</div>
+    <h1>Lesson 2 <span>備忘録</span></h1>
+    <p>HTML &amp; CSS の基礎 - 学んだことのまとめ</p>
+  </header>
+
+  <!-- Table of Contents -->
+  <nav class="toc">
+    <div class="toc-inner">
+      <a href="#html-basics">HTML基礎</a>
+      <a href="#css-basics">CSS基礎</a>
+      <a href="#layout">レイアウト</a>
+      <a href="#tips">Tips</a>
+      <a href="#errors">よくあるエラー</a>
+      <a href="#summary">まとめ</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HTML Basics -->
+    <section id="html-basics" class="lesson-section">
+      <div class="section-label html-label">Section 1</div>
+      <h2>HTML の基礎</h2>
+
+      <div class="card">
+        <h3>&#x1f4c4; HTMLの基本構造</h3>
+        <p>すべてのHTMLファイルはこの構造から始まります。</p>
+        <div class="code-block">
+          <div class="code-header"><span>HTML</span></div>
+          <pre><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"ja"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"viewport"</span> <span class="attr">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>ページタイトル<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+  <span class="comment">&lt;!-- ここにコンテンツを書く --&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>&#x1f3f7;&#xfe0f; よく使うHTMLタグ</h3>
+        <ul>
+          <li><code>&lt;h1&gt;</code> ~ <code>&lt;h6&gt;</code> - <strong>見出し</strong>（h1が最も大きい）</li>
+          <li><code>&lt;p&gt;</code> - <strong>段落</strong>（テキストのブロック）</li>
+          <li><code>&lt;a href="URL"&gt;</code> - <strong>リンク</strong></li>
+          <li><code>&lt;img src="" alt=""&gt;</code> - <strong>画像</strong></li>
+          <li><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> - <strong>リスト</strong>（箇条書き / 番号付き）</li>
+          <li><code>&lt;div&gt;</code> - <strong>ブロック要素</strong>のグループ化</li>
+          <li><code>&lt;span&gt;</code> - <strong>インライン要素</strong>のグループ化</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>&#x1f517; ブロック要素 vs インライン要素</h3>
+        <p><strong>ブロック要素</strong>は横幅いっぱいに広がり、前後に改行が入ります。</p>
+        <p><strong>インライン要素</strong>はコンテンツの幅だけを占め、横に並びます。</p>
+        <div class="code-block">
+          <div class="code-header"><span>HTML</span></div>
+          <pre><span class="comment">&lt;!-- ブロック要素 --&gt;</span>
+<span class="tag">&lt;div&gt;</span>これはブロック要素です<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;p&gt;</span>これもブロック要素です<span class="tag">&lt;/p&gt;</span>
+
+<span class="comment">&lt;!-- インライン要素 --&gt;</span>
+<span class="tag">&lt;span&gt;</span>これは<span class="tag">&lt;/span&gt;</span><span class="tag">&lt;span&gt;</span>インライン要素です<span class="tag">&lt;/span&gt;</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS Basics -->
+    <section id="css-basics" class="lesson-section">
+      <div class="section-label css-label">Section 2</div>
+      <h2>CSS の基礎</h2>
+
+      <div class="card">
+        <h3>&#x1f3a8; CSSの書き方</h3>
+        <p>CSSはセレクタ、プロパティ、値の3つで構成されます。</p>
+        <div class="code-block">
+          <div class="code-header"><span>CSS</span></div>
+          <pre><span class="comment">/* セレクタ { プロパティ: 値; } */</span>
+
+<span class="selector">h1</span> {
+  <span class="prop">color</span>: <span class="value">#333</span>;
+  <span class="prop">font-size</span>: <span class="value">24px</span>;
+  <span class="prop">font-weight</span>: <span class="value">bold</span>;
+}
+
+<span class="selector">.class-name</span> {
+  <span class="prop">background-color</span>: <span class="value">#f0f0f0</span>;
+  <span class="prop">padding</span>: <span class="value">16px</span>;
+  <span class="prop">border-radius</span>: <span class="value">8px</span>;
+}
+
+<span class="selector">#id-name</span> {
+  <span class="prop">margin</span>: <span class="value">0 auto</span>;
+}</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>&#x1f4cf; よく使うCSSプロパティ</h3>
+        <ul>
+          <li><code>color</code> - 文字色</li>
+          <li><code>background-color</code> - 背景色</li>
+          <li><code>font-size</code> - 文字サイズ</li>
+          <li><code>margin</code> - 外側の余白</li>
+          <li><code>padding</code> - 内側の余白</li>
+          <li><code>border</code> - 枠線</li>
+          <li><code>width</code> / <code>height</code> - 幅 / 高さ</li>
+          <li><code>display</code> - 表示形式（block, flex, grid）</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">&#x1f4a1;</span>
+        <div><strong>margin vs padding：</strong>marginは要素の「外側」、paddingは要素の「内側」の余白です。border（枠線）を基準に考えると覚えやすいです。</div>
+      </div>
+    </section>
+
+    <!-- Layout -->
+    <section id="layout" class="lesson-section">
+      <div class="section-label css-label">Section 3</div>
+      <h2>レイアウトの基本</h2>
+
+      <div class="card">
+        <h3>&#x1f4e6; Flexbox</h3>
+        <p>要素を横並び・縦並びに配置する強力なレイアウト手法です。</p>
+        <div class="code-block">
+          <div class="code-header"><span>CSS</span></div>
+          <pre><span class="selector">.container</span> {
+  <span class="prop">display</span>: <span class="value">flex</span>;
+  <span class="prop">justify-content</span>: <span class="value">center</span>;   <span class="comment">/* 横方向の配置 */</span>
+  <span class="prop">align-items</span>: <span class="value">center</span>;      <span class="comment">/* 縦方向の配置 */</span>
+  <span class="prop">gap</span>: <span class="value">16px</span>;               <span class="comment">/* 要素間の隙間 */</span>
+}
+
+<span class="comment">/* よく使う justify-content の値 */</span>
+<span class="comment">/* center       → 中央揃え */</span>
+<span class="comment">/* space-between → 両端揃え */</span>
+<span class="comment">/* flex-start   → 左揃え */</span>
+<span class="comment">/* flex-end     → 右揃え */</span></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>&#x1f5a5;&#xfe0f; レスポンシブデザイン</h3>
+        <p>画面サイズに応じてレイアウトを変えるために<strong>メディアクエリ</strong>を使います。</p>
+        <div class="code-block">
+          <div class="code-header"><span>CSS</span></div>
+          <pre><span class="comment">/* 基本スタイル（モバイルファースト） */</span>
+<span class="selector">.container</span> {
+  <span class="prop">width</span>: <span class="value">100%</span>;
+  <span class="prop">padding</span>: <span class="value">16px</span>;
+}
+
+<span class="comment">/* タブレット以上 */</span>
+<span class="selector">@media (min-width: 768px)</span> {
+  <span class="selector">.container</span> {
+    <span class="prop">max-width</span>: <span class="value">720px</span>;
+    <span class="prop">margin</span>: <span class="value">0 auto</span>;
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips -->
+    <section id="tips" class="lesson-section">
+      <div class="section-label tips-label">Section 4</div>
+      <h2>便利な Tips</h2>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">&#x2705;</span>
+        <div><strong>DevToolsを活用しよう：</strong>ブラウザでF12キーを押すと開発者ツールが開きます。要素の検証やCSSのリアルタイム編集ができます。</div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">&#x2705;</span>
+        <div><strong>HTMLの入れ子ルール：</strong><code>&lt;p&gt;</code>タグの中に<code>&lt;div&gt;</code>は入れられません。ブロック要素の中にインライン要素を入れるのが基本です。</div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">&#x26a0;&#xfe0f;</span>
+        <div><strong>classとidの使い分け：</strong>classは複数の要素に使えますが、idはページ内で1つだけ。基本的にはclassを使いましょう。</div>
+      </div>
+
+      <div class="card">
+        <h3>&#x2328;&#xfe0f; 覚えておきたいショートカット</h3>
+        <ul>
+          <li><code>Ctrl + S</code> - ファイルを保存</li>
+          <li><code>Ctrl + Z</code> - 元に戻す</li>
+          <li><code>Ctrl + Shift + I</code> - DevToolsを開く</li>
+          <li><code>!</code> + <code>Tab</code> - HTMLの雛形を自動生成（VS Code）</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Common Errors -->
+    <section id="errors" class="lesson-section">
+      <div class="section-label error-label">Section 5</div>
+      <h2>よくあるエラーと対処法</h2>
+
+      <div class="callout callout-error">
+        <span class="callout-icon">&#x274c;</span>
+        <div><strong>閉じタグ忘れ：</strong><code>&lt;div&gt;</code>を開いたら必ず<code>&lt;/div&gt;</code>で閉じましょう。インデントを揃えると見つけやすくなります。</div>
+      </div>
+
+      <div class="callout callout-error">
+        <span class="callout-icon">&#x274c;</span>
+        <div><strong>CSSが反映されない：</strong>セレクタ名のスペルミス、セミコロン<code>;</code>の付け忘れ、ファイルのリンク切れを確認しましょう。</div>
+      </div>
+
+      <div class="callout callout-error">
+        <span class="callout-icon">&#x274c;</span>
+        <div><strong>画像が表示されない：</strong><code>src</code>のパスが正しいか、ファイル名の大文字・小文字が合っているか確認しましょう。</div>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section id="summary" class="lesson-section">
+      <div class="section-label summary-label">Section 6</div>
+      <h2>Lesson 2 まとめ</h2>
+
+      <div class="card">
+        <h3>&#x1f3af; 学習チェックリスト</h3>
+        <ul class="checklist">
+          <li><span class="check">&#x2713;</span> HTMLの基本構造（DOCTYPE, head, body）を理解した</li>
+          <li><span class="check">&#x2713;</span> 主要なHTMLタグを使える（h1-h6, p, a, img, div, span）</li>
+          <li><span class="check">&#x2713;</span> ブロック要素とインライン要素の違いがわかる</li>
+          <li><span class="check">&#x2713;</span> CSSの基本構文（セレクタ, プロパティ, 値）を理解した</li>
+          <li><span class="check">&#x2713;</span> marginとpaddingの違いがわかる</li>
+          <li><span class="check">&#x2713;</span> Flexboxで横並びレイアウトを作れる</li>
+          <li><span class="check">&#x2713;</span> メディアクエリの基本的な使い方がわかる</li>
+          <li><span class="check">&#x2713;</span> DevToolsを使ってデバッグできる</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">&#x1f680;</span>
+        <div><strong>Next Step：</strong>Lesson 3ではJavaScriptの基礎を学びます。HTMLとCSSで作った静的なページに動きをつけていきましょう！</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    TECH CAMP Lesson 2 備忘録 &mdash; Last updated: 2026-03-28
+  </footer>
+
+</body>
+</html>
